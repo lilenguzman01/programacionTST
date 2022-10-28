@@ -2,11 +2,7 @@ class Propiedad:
     Nombre = ""
     Direccion = ""
     Contacto = ""
-   #Id_Tipo = 0 # variable null por defecto en tabla
-   #Id_Estado =  0 # variable null por defecto en tabla
-   #Id_Operatoria_Comercial = 0 # variable null por defecto en tabla
-   #Id_Propietario =  0 # variable null por defecto en tabla
-    
+  
     def __init__(self, nombre, direccion, contacto):
         self.Nombre = nombre
         self.Direccion = direccion
@@ -26,5 +22,13 @@ class Propiedad:
     
     def setDireccion(self,direccion):
         self.Direccion = direccion
+    
+    def setContacto(self,contacto):
+        self.Contacto = contacto
+    
+    def _str(self):
+        print("Nombre: "+self.Nombre)
+        print("\nDireccion: "+self.Direccion)
+        print("Contacto: "+self.Contacto)
 
     

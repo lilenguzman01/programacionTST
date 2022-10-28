@@ -5,7 +5,7 @@ class Tipo:
         self.Nombre_Tipo = n_tipo
 
     def getNombre_Tipo(self):
-        return Nombre_Tipo
+        return self.Nombre_Tipo
 
 
     def setNombre_Tipo(self,n_tipo):

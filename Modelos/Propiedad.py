@@ -8,7 +8,7 @@ class Propiedad:
    #Id_Propietario =  0 # variable null por defecto en tabla
     
     def __init__(self, nombre, direccion, contacto):
-        self.Nombre = Nombre
+        self.Nombre = nombre
         self.Direccion = direccion
         self.Contacto = contacto
 
@@ -26,5 +26,5 @@ class Propiedad:
     
     def setDireccion(self,direccion):
         self.Direccion = direccion
-    
+
     

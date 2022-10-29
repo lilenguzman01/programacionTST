@@ -27,6 +27,6 @@ def setContacto(self,contacto):
     self.Contacto = contacto
 
 def _str(self):
-    print("Nombre: "+self.Nombre)
-    print("\nDireccion: "+self.Direccion)
-    print("Contacto: "+self.Contacto)
+    print("Nombre Propietario: "+self.Nombre)
+    print("\nDireccion Propietario: "+self.Direccion)
+    print("Contacto Propietario: "+self.Contacto)

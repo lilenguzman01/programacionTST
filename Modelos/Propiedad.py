@@ -27,8 +27,8 @@ class Propiedad:
         self.Contacto = contacto
     
     def _str(self):
-        print("Nombre: "+self.Nombre)
-        print("\nDireccion: "+self.Direccion)
-        print("Contacto: "+self.Contacto)
+        print("Nombre Propiedad: "+self.Nombre)
+        print("\nDireccion Propiedad: "+self.Direccion)
+        print("Contacto Propiedad: "+self.Contacto)
 
     

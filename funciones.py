@@ -13,6 +13,13 @@ cursor = conectar[1]# a cursor le asigno el cursor que tiene el objeto conectar
 
 def cargarDatosPropiedad():
     system("cls") #limpio la pantalla
+    idPropietario=consultaPropietario()
+    print(idPropietario)
+
+    #si hay propietarios le pregunto si quiere seleccionar
+    # #si no hay le aviso que no hay propietarios 
+    #o else si quiere cargar uno nuevo
+def consultaPropietario():
     print("Ingresar Nombre del Propietario\n")
     nombresPropietarios = tuplaPropietarios()#pide el listado de los propietarios
     if len(nombresPropietarios) == 0:#no hay propietarios registrados
@@ -27,11 +34,16 @@ def cargarDatosPropiedad():
             idPropietario=seleccionarPropietarioExistente(nombresPropietarios)#selecciona el nombre de un propietario existente a la propiedad
         else:#cargo un nuevo propietario    
             idPropietario=cargarNuevoPropietario()
+    return idPropietario
 
-
-    #si hay propietarios le pregunto si quiere seleccionar
-    # #si no hay le aviso que no hay propietarios 
-    #o else si quiere cargar uno nuevo
+def maximoId():
+    print("entra al maximo")
+    if baseDatos.is_connected():#si hay conexion con la base de datos
+        sentenciaId="select max(Id_Propietario) from propietario"#obtengo el id del nuevo propietario
+        cursor.execute(sentenciaId)
+        i=cursor.fetchall()
+        
+    return i
 
 def listarPropietarios(nombresPropietarios):#muestra los propietarios cargados en la base de datos
     print("Listado de propietarios\n")
@@ -50,9 +62,9 @@ def listarPropietarios(nombresPropietarios):#muestra los propietarios cargados e
     
 def tuplaPropietarios():#retorna el listado de propietarios
     if baseDatos.is_connected():#si hay conexion con la base de datos
-            sentencia = "SELECT Id_Propietario,nombre FROM propietario "#escribo sentencia sql
+            sentencia = "SELECT Id_Propietario,nombre FROM propietario ORDER BY Id_Propietario"#escribo sentencia sql
             cursor.execute(sentencia)
-            nombresPropietarios = cursor.fetchall()#retorna una tupla
+            nombresPropietarios = cursor.fetchall()# aca retorna una tupla
             
     return nombresPropietarios
 
@@ -62,11 +74,16 @@ def seleccionarPropietarioExistente(nombresPropietarios):#el usuario selecciona 
     while seguir:
         if baseDatos.is_connected():#si hay conexion con la base de datos
             listarPropietarios(nombresPropietarios)#muestra por panbtalla el listado de propietarios
-            id = int(input("Seleccionar el Id de un Propietarion: "))
-            if id<1 or id>len(nombresPropietarios):
+            id = int(input("Seleccionar el Id de un Propietario: "))
+            print("maximo")
+            iMaximo=maximoId()
+            
+            print(iMaximo)
+            if id<1 or id>iMaximo:
                 print("Opcion Incorrecta")
             else:
                 seguir = False
+    print("seleccionarPropietarioExistente55555")            
 
     return id            
 
@@ -82,7 +99,10 @@ def cargarNuevoPropietario():#carga un nuevo propietario a la base de datos
         sentenciaSql="INSERT INTO propietario(nombre, direccion, contacto) VALUES('{0}','{1}','{2}')"#sentencia sql
         cursor.execute(sentenciaSql.format(propie.getNombre(),propie.getDireccion(),propie.getContacto()))
         baseDatos.commit()#agrego los cambios en la base de datos
+        i=maximoId()
+        
+    return i    
 #listadoPropietarios()
 
-#cargarDatosPropiedad()
-cargarNuevoPropietario()
+cargarDatosPropiedad()
+#i=cargarNuevoPropietario()

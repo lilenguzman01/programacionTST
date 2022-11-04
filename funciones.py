@@ -53,12 +53,12 @@ def cargarNuevaOperatoria():
         operatoria = Modelos.OperatoriaComercial.OperatoriaComercial(nombre) # creo el objeto operatoria
         # perteneciente a la clase OperatoriaComercial
         print(operatoria.getNombre_Operatoria_Comercial())
-        print("antes  cargar nueva op")
+
         sentenciaSql = "INSERT INTO operatoriacomercial(Nombre_Operatoria_Comercial) VALUES('{0}')"  # sentencia sql
         cursor.execute(sentenciaSql.format(operatoria.getNombre_Operatoria_Comercial()))
         baseDatos.commit()# agrego los cambios en la base de datos
         i = maximoIdOperatoria()
-        print("Se Ingreso un Nuevo operatoria")
+        print("Se Ingreso una Nueva operatoria")
     return i
 
 
@@ -72,8 +72,45 @@ def maximoIdOperatoria():  # retorna el maximo id de la tabla Operatoria_Comerci
     return i[0]  # retorna el valor almacenado en la posicion del indice 0
 
 
-def seleccionarOperatoriaoExistente(operatoriasExistentes):
+def seleccionarOperatoriaoExistente(operatoriasExistentes):#sseleccionar id de operatoria comercial existente
+    #para agregar a la propiedad
     print ("seleccionarOperatoriaoExistente")
+    seguir = True
+    while seguir:
+        if baseDatos.is_connected():  # si hay conexion con la base de datos
+            listarOperatorias(operatoriasExistentes)  # muestra por panbtalla el listado de Operatoria Comercial
+            id = int(input("Seleccionar el Id de una Operatoria Comercial: "))
+            iMaximo = maximoIdOperatoria()  # recibe el maximo numero de id que hay en la tabla Operatoria Comercial
+
+            if id < 1 or id > iMaximo:  # se fija si el id seleccionado esta een el rango de los id
+                # que hay en tabla Operatoria Comercial
+                print("Opcion Incorrecta")  # si el id seleccionado no es correcto
+            else:
+                seguir = False  # el id Operatoria Comercial fue seleccionado correctamentre
+                # corta el while
+
+    return id  # retorna el id seleccionado
+
+
+def maximoIdOperatoria():  # retorna el maximo id de la tabla peratoria_Comercial
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentenciaId = "select max(Id_Operatoria_Comercial) from operatoriacomercial"  # obtengo el id del nuevo propietario
+        cursor.execute(sentenciaId)
+        i = cursor.fetchone()
+    return i[0]  # retorna el valor almacenado en la posicion del indice 0
+
+
+def listarOperatorias(operatoriasExistentes):# muestra el listado de operatorias comerciales cargadas en la base de datos
+    print("Operatorias Comerciales\n")
+    if len(operatoriasExistentes) == 0:  # si no hay propietarios
+        print("No hay Operatorias Comerciales registrados")
+    else:  # hay Operatorias Comerciales registradas. Muestro su id y nombre
+        for i in operatoriasExistentes:
+            datosOperatorias = "Id Operatorias Comerciales: {0}-- Nombre: {1}"
+            print(datosOperatorias.format(i[0], i[1]))
+
+        print("\n")
 def tuplaOperatorias(): #obtengo las operatorias cargadas en la base de datos
 
     if baseDatos.is_connected():  # si hay conexion con la base de datos

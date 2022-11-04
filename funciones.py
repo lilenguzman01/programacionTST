@@ -31,8 +31,8 @@ def consultaEstado():#obtiene el id del propietario que se quiere poner en
     #la tabla propiedad
     #system("cls") #limpio la pantalla
     print("Ingresar Id del estado de la propiedad\n")
-    nombresEstados = tuplaEstados()#pide el listado de los propietarios
-    if len(nombresEstados) == 0:#no hay propiedades registrados
+    nombresEstados = tuplaEstados()#pide el listado de los estados
+    if len(nombresEstados) == 0:#no hay estados registrados
             print("No hay estados registrados.")
             idEstado=cargarNuevoEstado()#carga un nuevo estado (ejemplo: disponible, no disponible, disponible proximamente, etc)
     else:#hay estados registrados
@@ -41,13 +41,13 @@ def consultaEstado():#obtiene el id del propietario que se quiere poner en
         2- Cargar un nuevo estado, para utilizar su Id.
         """))
         if opcion == 1:
-            idEstado=seleccionarEstadoExistente(nombresEstados)#selecciona el nombre de un propietario existente a la propiedad
+            idEstado=seleccionarEstadoExistente(nombresEstados)#selecciona el nombre de un estado existente a la propiedad
         else:#cargo un nuevo estado    
             idEstado=cargarNuevoEstado()
     return idEstado
 
 
-def maximoIdEstado():#retorna el maximo id de la tabla propietario
+def maximoIdEstado():#retorna el maximo id de la tabla estado
     
     if baseDatos.is_connected():#si hay conexion con la base de datos
         sentenciaIdEstado="select max(Id_Estado) from estado"#obtengo el id del nuevo estado
@@ -56,11 +56,11 @@ def maximoIdEstado():#retorna el maximo id de la tabla propietario
     return i[0]#retorna el valor almacenado en la posicion del indice 0
 
 
-def listarEstados(nombresEstados):#muestra los propietarios cargados en la base de datos
+def listarEstados(nombresEstados):#muestra los estados cargados en la base de datos
     print("Listado de estados\n")
-    if len(nombresEstados) == 0:#si no hay propietarios
+    if len(nombresEstados) == 0:#si no hay estados
             print("No hay propietarios registrados")
-    else:#hay propietarios registrados. Muestro su id y nombre
+    else:#hay estados registrados. Muestro su id y nombre
         for i in nombresEstados:
             
             datosEstado = "Id Estado: {0}-- Nombre: {1}"
@@ -70,7 +70,7 @@ def listarEstados(nombresEstados):#muestra los propietarios cargados en la base 
 
 
 
-def tuplaEstados():#retorna el listado de propietarios
+def tuplaEstados():#retorna el listado de estados
     if baseDatos.is_connected():#si hay conexion con la base de datos
             sentenciaEstado = "SELECT Id_Estado,Nombre_Estado FROM estado ORDER BY Id_Estado"#escribo sentencia sql
             cursor.execute(sentenciaEstado)
@@ -79,31 +79,31 @@ def tuplaEstados():#retorna el listado de propietarios
     return nombresEstados#retorna el listado de propietarios
 
 
-def seleccionarEstadoExistente(nombresEstados):#el usuario selecciona el id de un propietario
+def seleccionarEstadoExistente(nombresEstados):#el usuario selecciona el id de un estado
     #existente para cargar a la propiedad
     seguir = True
     while seguir:
         if baseDatos.is_connected():#si hay conexion con la base de datos
-            listarPropietarios(nombresEstados)#muestra por panbtalla el listado de propietarios
+            listarPropietarios(nombresEstados)#muestra por pantalla el listado de estados
             id = int(input("Seleccionar el Id de un Estado: "))
-            iMaximoEstado=maximoIdEstado()#recibe el maximo numero de id que hay en la tabla propietrio
+            iMaximoEstado=maximoIdEstado()#recibe el maximo numero de id que hay en la tabla estado
             
-            if id<1 or id>iMaximoEstado: #se fija si el id seleccionado esta een el rango de los id
-                #que hay en tabla propietario 
+            if id<1 or id>iMaximoEstado: #se fija si el id seleccionado esta en el rango de los id
+                #que hay en tabla estado
                 print("Opcion Incorrecta")#si el id seleccionado no es correcto
             else:
-                seguir = False#el id propietariofue seleccionado correctamentre
+                seguir = False#el id estado fue seleccionado correctamentre
                 #corta el while
 
 
 
-def cargarNuevoEstado():#carga un nuevo propietario a la base de datos
+def cargarNuevoEstado():#carga un nuevo estado a la base de datos
     if baseDatos.is_connected():#si hay conexion con la base de datos
         nombre = input("Ingrese Nombre del Estado: ")
         
 
         est = Modelos.Estado.Estado(nombre)#creo el objeto est
-        #perteneciente a la clase Propietario
+        #perteneciente a la clase estado
               
         sentenciaSqlEstado="INSERT INTO estado (Nombre_Estado) VALUES('{0}')"#sentencia sql
         cursor.execute(sentenciaSqlEstado.format(est.getNombre_Estado()))

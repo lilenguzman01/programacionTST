@@ -92,13 +92,6 @@ def seleccionarOperatoriaoExistente(operatoriasExistentes):#sseleccionar id de o
     return id  # retorna el id seleccionado
 
 
-def maximoIdOperatoria():  # retorna el maximo id de la tabla peratoria_Comercial
-
-    if baseDatos.is_connected():  # si hay conexion con la base de datos
-        sentenciaId = "select max(Id_Operatoria_Comercial) from operatoriacomercial"  # obtengo el id del nuevo propietario
-        cursor.execute(sentenciaId)
-        i = cursor.fetchone()
-    return i[0]  # retorna el valor almacenado en la posicion del indice 0
 
 
 def listarOperatorias(operatoriasExistentes):# muestra el listado de operatorias comerciales cargadas en la base de datos

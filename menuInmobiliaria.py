@@ -4,6 +4,7 @@ import Modelos.OperatoriaComercial
 import Modelos.Propiedad
 import Modelos.Propietario
 import Modelos.Tipo
+import Modelos.Estado
 import funciones
 conectar=Conexion.conectar()#realizo conexion con la base de datos me retorna
                             # la base de datos y el cursor

@@ -1,12 +1,12 @@
 from os import system #importo system para usar la funcion clear y limpiar la pantalla
-from Controladores import Conexion
+from Controladores import conexion
 import Modelos.OperatoriaComercial
 import Modelos.Propiedad
 import Modelos.Propietario
 import Modelos.Tipo
 import Modelos.Estado
 import funciones
-conectar=Conexion.conectar()#realizo conexion con la base de datos me retorna
+conectar=conexion.conectar()#realizo conexion con la base de datos me retorna
                             # la base de datos y el cursor
 baseDatos = conectar[0]# a baseDatos le asigno la base de datos que tiene el objeto conectar
 cursor = conectar[1]# a cursor le asigno el cursor que tiene el objeto conectar

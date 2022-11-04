@@ -1,7 +1,6 @@
 from Controladores import conexion
 import Modelos.OperatoriaComercial
 import Modelos.Propiedad
-#from Modelos import Propietario
 import Modelos.Propietario
 import Modelos.Tipo
 import Modelos.Estado
@@ -14,21 +13,103 @@ cursor = conectar[1]# a cursor le asigno el cursor que tiene el objeto conectar
 
 def cargarDatosPropiedad():
     system("cls") #limpio la pantalla
+    print("Cargar Nueva Propiedad")
     idPropietario=consultaPropietario()
     idOperatoria=consultaOperatoria()
     idEstado=consultaEstado()
     idTipo=consultaTipo()
-    
-    
+    nombre= input("Ingrese Nombre de la Propiedad:")
+    direccion = input("Ingrese Direccion de la Propiedad:")
+    contacto = input("Ingrese Contacto de la Propiedad:")
+
+    #nuevaPropiedad = Modelos.Propiedad.Propiedad()
+    cargarPropiedadBaseDatos(nuevaPropiedad)#carga la propiedad recien creadad a la base de datos
+
+def cargarPropiedadBaseDatos(nuevaPropiedad):#carga la propiedad recien creadad a la base de datos
+    system("cls")  # limpio la pantalla
+    print("Cargando la Nueva Propiedad a la Base de Datos")
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentenciaSql = "INSERT INTO propiedad(Nombre,Direccion,Contacto,Id_Tipo,Id_Estado,Id_Operatoria_Comercial,Id_Propietario) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')"  # sentencia sql
+        cursor.execute(sentenciaSql.format(nuevaPropiedad))
+        baseDatos.commit()# agrego los cambios en la base de datos
+
+        print("Se Cargo la Nueva Propiedad")
+
+def consultaTipo():#obtiene el id del tipo que se quiere poner en
+    #la tabla propiedad
+    system("cls") #limpio la pantalla
+    print("Cargar Tipo")
+    tiposExistentes = tuplaTipos()#obtengo los tipos existentes en la base de datos
+
+    if len(tiposExistentes) == 0:#no hay tipos registrados
+            print("No hay Tipos registrados. Debe cargar un Tipo para obtener el Id.")
+            idTipo=cargarNuevoTipo() #cargo un Nuevo Tipo
+            print(idTipo)
+            print("id idTipo")
+    else:#hay Tipos registradas
+        opcion = int(input("""Existen Tipos registrados en la base de datos
+        1- Seleccionar Tipo  registrado para utilizar su Id.
+        2- Cargar un Tipo, para utilizar su Id.
+        """))
+        if opcion == 1:
+            idTipo=seleccionarTiposExistentes(tiposExistentes)  #selecciona el id de un tipo existente
+        else:#cargo un Nuevo Tipo
+            idTipo = cargarNuevoTipo()  # cargo un Nuevo Tipo
+
+    return idTipo
+def seleccionarTiposExistentes(tiposExistentes):#sseleccionar id de Tipo existente
+    #para agregar a la propiedad
+    print ("seleccionar Tipo Existente")
+    seguir = True
+    while seguir:
+        if baseDatos.is_connected():  # si hay conexion con la base de datos
+            listarOperatorias(tiposExistentes)  # muestra por panbtalla el listado de Tipo
+            id = int(input("Seleccionar el Id de un Tipo Existente: "))
+            iMaximo = maximoIdTipo()  # recibe el maximo numero de id que hay en la tabla tipo
+
+            if id < 1 or id > iMaximo:  # se fija si el id seleccionado esta een el rango de los id
+                # que hay en tabla Tipo
+                print("Opcion Incorrecta")  # si el id seleccionado no es correcto
+            else:
+                seguir = False  # el id Tipo fue seleccionado correctamentre
+                # corta el while
+
+    return id  # retorna el id seleccionado
+
+def maximoIdTipo():  # retorna el maximo id de la tabla Tipo
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentenciaId = "select max(Id_Tipo) from tipo"  # obtengo el id
+        # del ultimo tipo cargado
+        cursor.execute(sentenciaId)
+        i = cursor.fetchone()
+    return i[0]  # retorna el valor almacenado en la posicion del indice 0
 
 
-    #si hay propietarios le pregunto si quiere seleccionar
-    # #si no hay le aviso que no hay propietarios 
+def cargarNuevoTipo(): #cargo un Nuevo Tipo
+
+    print("Cargar Nuevo Tipo")
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        nombre = input("Ingrese Nombre del Tipo: ")
+        tipo = Modelos.Tipo.Tipo(nombre)  # creo el objeto tipo
+        # perteneciente a la clase tipo
+        sentenciaSql = "INSERT INTO tipo(Nombre_Tipo) VALUES('{0}')"  # sentencia sql
+        cursor.execute(sentenciaSql.format(tipo.getNombre_Tipo()))
+        baseDatos.commit()# agrego los cambios en la base de datos
+        i = maximoIdOperatoria()
+        print("Se Ingreso un Nuevo Tipo")
+    return i
+
+def tuplaTipos(): #obtengo los tipos existentes en la base de datos
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentencia = "SELECT Id_Tipo,Nombre_Tipo FROM tipo ORDER BY Id_Tipo"  # escribo sentencia sql
+        cursor.execute(sentencia)
+        nombresTipos = cursor.fetchall()  # aca retorna una tupla
+
+    return nombresTipos  # retorna el listado de los tipos
 
 
-    #o else si quiere cargar uno nuevo
-def consultaTipo():
-    print("")
 def consultaEstado():#obtiene el id del propietario que se quiere poner en 
     #la tabla propiedad
     #system("cls") #limpio la pantalla
@@ -138,7 +219,7 @@ def consultaOperatoria():#obtiene el id de la operatoria comercial que se quiere
     return idOperatoria
 def cargarNuevaOperatoria():
 
-    print("cargarNuevaOperatoria")
+    print("Cargar Nueva Operatoria")
     if baseDatos.is_connected():  # si hay conexion con la base de datos
         nombre = input("Ingrese Nombre de la Operatoria Comercial: ")
         operatoria = Modelos.OperatoriaComercial.OperatoriaComercial(nombre) # creo el objeto operatoria
@@ -165,7 +246,7 @@ def maximoIdOperatoria():  # retorna el maximo id de la tabla Operatoria_Comerci
 
 def seleccionarOperatoriaoExistente(operatoriasExistentes):#sseleccionar id de operatoria comercial existente
     #para agregar a la propiedad
-    print ("seleccionarOperatoriaoExistente")
+    print ("seleccionar Operatoria Existente")
     seguir = True
     while seguir:
         if baseDatos.is_connected():  # si hay conexion con la base de datos

@@ -7,7 +7,7 @@ def conectar():
             host='localhost',
             port=3306,
             user='root',
-            password='cuque',
+            password='dino94',
             db='bbdd_bienes_raices_future'
         )
         if miBase.is_connected(): #si se conecto a la base de datos  imprimo mensaje "conexion exitosa"

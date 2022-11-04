@@ -1,9 +1,10 @@
 class Propiedad:
+    id_tipo=""
     Nombre = ""
     Direccion = ""
     Contacto = ""
   
-    def __init__(self, nombre, direccion, contacto):
+    def __init__(self,idtopi, nombre, direccion, contacto):
         self.Nombre = nombre
         self.Direccion = direccion
         self.Contacto = contacto

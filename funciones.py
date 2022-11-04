@@ -23,14 +23,69 @@ def cargarDatosPropiedad():
     #si hay propietarios le pregunto si quiere seleccionar
     # #si no hay le aviso que no hay propietarios 
     #o else si quiere cargar uno nuevo
-def consultaOperatoria():#obtiene el id de la operatoria cpmercial que se quiere poner en 
+def consultaOperatoria():#obtiene el id de la operatoria comercial que se quiere poner en
     #la tabla propiedad
     system("cls") #limpio la pantalla
-    
+    print("Cargar Operatoria Comercial")
+    operatoriasExistentes = tuplaOperatorias()#obtengo las operatorias comerciales
+                                                # existentes en la base de datos
+    if len(operatoriasExistentes) == 0:#no hay Operatorias Comerciales registradas
+            print("No hay Operatorias Comerciales registradas. Debe cargar una Operatoria Comerciale para obtener el Id.")
+            idOperatoria=cargarNuevaOperatoria() #cargo una nueva operatoria comercial
+            print(idOperatoria)
+            print("id nueva vacia")
+    else:#hay Operatorias Comerciales registradas
+        opcion = int(input("""Existen Operatorias Comerciales registradas en la base de datos
+        1- Seleccionar Operatoria Comercial  registrada para utilizar su Id.
+        2- Cargar una nueva Operatoria Comercial, para utilizar su Id.
+        """))
+        if opcion == 1:
+            idOperatoria=seleccionarOperatoriaoExistente(operatoriasExistentes)#selecciona el id de una opertatoria existente
+        else:#cargo una nueva operatoria comercial
+            idOperatoria=cargarNuevaOperatoria()
+
+    return idOperatoria
+def cargarNuevaOperatoria():
+
+    print("cargarNuevaOperatoria")
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        nombre = input("Ingrese Nombre de la Operatoria Comercial: ")
+        operatoria = Modelos.OperatoriaComercial.OperatoriaComercial(nombre) # creo el objeto operatoria
+        # perteneciente a la clase OperatoriaComercial
+        print(operatoria.getNombre_Operatoria_Comercial())
+        print("antes  cargar nueva op")
+        sentenciaSql = "INSERT INTO operatoriacomercial(Nombre_Operatoria_Comercial) VALUES('{0}')"  # sentencia sql
+        cursor.execute(sentenciaSql.format(operatoria.getNombre_Operatoria_Comercial()))
+        baseDatos.commit()# agrego los cambios en la base de datos
+        i = maximoIdOperatoria()
+        print("Se Ingreso un Nuevo operatoria")
+    return i
+
+
+def maximoIdOperatoria():  # retorna el maximo id de la tabla Operatoria_Comercial
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentenciaId = "select max(Id_Operatoria_Comercial) from operatoriacomercial"  # obtengo el id
+        # de la ultima operatoria cargada
+        cursor.execute(sentenciaId)
+        i = cursor.fetchone()
+    return i[0]  # retorna el valor almacenado en la posicion del indice 0
+
+
+def seleccionarOperatoriaoExistente(operatoriasExistentes):
+    print ("seleccionarOperatoriaoExistente")
+def tuplaOperatorias(): #obtengo las operatorias cargadas en la base de datos
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentencia = "SELECT Id_Operatoria_Comercial,Nombre_Operatoria_Comercial FROM operatoriacomercial ORDER BY Id_Operatoria_Comercial"  # escribo sentencia sql
+        cursor.execute(sentencia)
+        nombresOperatorias = cursor.fetchall()  # aca retorna una tupla
+
+    return nombresOperatorias  # retorna el listado de las Operatorias Comerciales
 
 def consultaPropietario():#obtiene el id del propietario que se quiere poner en 
     #la tabla propiedad
-    system("cls") #limpio la pantalla
+    #system("cls") #limpio la pantalla
     print("Ingresar Id del Propietario\n")
     nombresPropietarios = tuplaPropietarios()#pide el listado de los propietarios
     if len(nombresPropietarios) == 0:#no hay propietarios registrados

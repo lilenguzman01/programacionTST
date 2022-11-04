@@ -57,17 +57,33 @@ def menuPrincipal():
                                                        # a la opcion seleccionada
 
 def ejecutarOpcion(opcion):
-    match opcion:
-        case 1: ingresarPropiedad()#lo cambie!!!!!
-"""case 2: eliminarPropiedad()
-        case 3: modificarPropiedad()
-        case 4: listarPropiedad()
-        case 5: listarPropiedadVenta()
-        case 6: listarPropiedadAlquiler()
-        case 7: listarPropiedadesVendidas()
-        case 8: listarPropiedadesAlquiladas()
-        case 9: desconectar()
-"""     
+    if opcion == 1:
+        ingresarPropiedad()
+    elif opcion == 2:
+        eliminarPropiedad()
+
+    elif opcion == 3:
+        modificarPropiedad()
+
+    elif opcion == 4:
+        listarPropiedad()
+
+    elif opcion == 5:
+        listarPropiedadVenta()
+
+    elif opcion == 6:
+        listarPropiedadAlquiler()
+
+    elif opcion == 7:
+        listarPropiedadesVendidas()
+
+    elif opcion == 8:
+        listarPropiedadesAlquiladas()
+
+    else:
+        desconectar()
+
+     
                 
 menuPrincipal()
 

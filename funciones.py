@@ -4,6 +4,7 @@ import Modelos.Propiedad
 #from Modelos import Propietario
 import Modelos.Propietario
 import Modelos.Tipo
+import Modelos.Estado
 from os import system #importo system para usar la funcion clear y limpiar la pantalla
 
 conectar=Conexion.conectar()#realizo conexion con la base de datos me retorna

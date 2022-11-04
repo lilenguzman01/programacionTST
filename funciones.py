@@ -17,6 +17,7 @@ def cargarDatosPropiedad():
     idPropietario=consultaPropietario()
     idOperatoria=consultaOperatoria()
     idEstado=consultaEstado()
+    idTipo=consultaTipo()
     
     
 
@@ -26,7 +27,8 @@ def cargarDatosPropiedad():
 
 
     #o else si quiere cargar uno nuevo
-
+def consultaTipo():
+    print("")
 def consultaEstado():#obtiene el id del propietario que se quiere poner en 
     #la tabla propiedad
     #system("cls") #limpio la pantalla

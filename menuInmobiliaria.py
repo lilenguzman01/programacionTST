@@ -51,14 +51,14 @@ def menuPrincipal():
                 break #finaliza el programa
             else:
                 opcionIngresadaCorrecta = True#la opcin ingresada es correcta. 
-                ejecutarOpcion(opcionIngresadaCorrecta)#llamo a la funcion
+                ejecutarOpcion(opcion)#llamo a la funcion REVISAR
                                                        #ejecutarOpcion que se encarga 
                                                        # de llamar a la funcion correspondiente 
                                                        # a la opcion seleccionada
 
 def ejecutarOpcion(opcion):
     match opcion:
-        case 1: ingresarPropiedad()
+        case 1: ingresarPropiedad()#lo cambie!!!!!
 """case 2: eliminarPropiedad()
         case 3: modificarPropiedad()
         case 4: listarPropiedad()

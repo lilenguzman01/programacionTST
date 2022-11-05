@@ -6,6 +6,10 @@ class Propiedad:
     Nombre = ""
     Direccion = ""
     Contacto = ""
+    eliminada = 0
+
+
+
   
     def __init__(self, Id_Tipo, Id_Estado, Id_Operatoria_Comercial, Id_Propietario, nombre, direccion, contacto):
         self.Id_Tipo = Id_Tipo
@@ -37,6 +41,9 @@ class Propiedad:
     def getContacto(self):
         return self.Contacto
 
+    def geteliminada(self):
+        return self.eliminada
+
     def setId_Tipo(self,Id_Tipo):
         self.Id_Tipo = Id_Tipo
 
@@ -58,10 +65,14 @@ class Propiedad:
     def setContacto(self,contacto):
         self.Contacto = contacto
     
+    def setelimanada(self,eliminada):
+        self.eliminada = eliminada
+
+
+
+
     def _str(self):
-        print("")
-
-
+        
         print("Nombre Propiedad: "+self.Nombre)
         print("\nDireccion Propiedad: "+self.Direccion)
         print("Contacto Propiedad: "+self.Contacto)

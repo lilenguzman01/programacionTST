@@ -14,7 +14,9 @@ cursor = conectar[1]# a cursor le asigno el cursor que tiene el objeto conectar
 def cerrarConexion():#cierro la conexion con la base de datos y cierro el cursor
     baseDatos.close()
     cursor.close()
-
+def listarPropiedad():
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        funciones.propDisponibleVenta
 def ingresarPropiedad():#metodo que ingresa una propiedad a la base de datos
     if baseDatos.is_connected():#si hay conexion con la base de datos
             funciones.cargarDatosPropiedad()#metodo que solicita al usuario que ingrese datos

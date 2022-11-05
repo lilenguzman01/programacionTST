@@ -16,10 +16,10 @@ def cerrarConexion():#cierro la conexion con la base de datos y cierro el cursor
     cursor.close()
 def listarPropiedad():
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-        funciones.propDisponibleVenta
+        funciones.listarPropiedades
 def ingresarPropiedad():#metodo que ingresa una propiedad a la base de datos
     if baseDatos.is_connected():#si hay conexion con la base de datos
-            funciones.cargarDatosPropiedad()#metodo que solicita al usuario que ingrese datos
+        funciones.cargarDatosPropiedad()#metodo que solicita al usuario que ingrese datos
                                         #de la propiedad(nombre, direccion, contacto )
 def eliminarPropiedad():#elimina una propiedad existente
     if baseDatos.is_connected():  # si hay conexion con la base de datos
@@ -27,6 +27,24 @@ def eliminarPropiedad():#elimina una propiedad existente
 def modificarPropiedad():#modifica una propiedad de la base de datos
     if baseDatos.is_connected():  # si hay conexion con la base de datos
         funciones.actualizarPropiedad()
+
+def listarPropiedadVenta(): #lista propiedad disponible venta
+    if baseDatos.is_connected():    # si hay conexion con la base de datos
+        funciones.propDisponibleVenta()
+
+def listarPropiedadAlquiler():  #lista propiedad disponible alquiler
+    if baseDatos.is_connected():    # si hay conexion con la base de datos
+        funciones.propDisponibleAlquiler()
+
+def listarPropiedadesVendidas(): #lista propiedad no disponible venta
+    if baseDatos.is_connected():    # si hay conexion con la base de datos
+        funciones.propNoDisponibleVenta()
+
+def listarPropiedadesAlquiladas():  #lista propiedad no disponible alquiler
+    if baseDatos.is_connected():    # si hay conexion con la base de datos
+        funciones.propNoDisponibleAlquiler()
+
+
 def menuPrincipal():
     system("cls") #limpio la pantalla
     continuar = True#cuando es false quiere decir que el usuario quiere cerrar el programa

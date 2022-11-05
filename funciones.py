@@ -439,39 +439,39 @@ def actualizarPropiedad():#actuaqliza la propiedad de la base de datos
   
 def muestraPropiedad():
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-            sentenciaListado="SELECT Id_Propiedad,Nombre,Direccion FROM propiedad"
-            cursor.execute(sentenciaListado)
-            listado=cursor.fetchall()# aca retorna una tupla
-            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
+        sentenciaListado="SELECT Id_Propiedad,Nombre,Direccion FROM propiedad"
+        cursor.execute(sentenciaListado)
+        listado=cursor.fetchall()# aca retorna una tupla
+        listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
   
 
 def propDisponibleVenta():#PROPIEDADES DISPONIBLES PARA LA VENTA
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-            sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'venta' and Nombre_Estado ='Disponible'"
-            cursor.execute(sentenciaListado)
-            listado=cursor.fetchall()# aca retorna una tupla
-            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
+        sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'venta' and Nombre_Estado ='Disponible'"
+        cursor.execute(sentenciaListado)
+        listado=cursor.fetchall()# aca retorna una tupla
+        listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
   
 def propDisponibleAlquiler():#PROPIEDADES DISPONIBLES PARA ALQUILER
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-            sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'alquiler' and Nombre_Estado ='Disponible'"
-            cursor.execute(sentenciaListado)
-            listado=cursor.fetchall()# aca retorna una tupla
-            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos  
+        sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'alquiler' and Nombre_Estado ='Disponible'"
+        cursor.execute(sentenciaListado)
+        listado=cursor.fetchall()# aca retorna una tupla
+        listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos  
 
- def propNoDisponibleAlquiler():#PROPIEDADES  NO DISPONIBLES PARA ALQUILER
+def propNoDisponibleAlquiler():#PROPIEDADES  NO DISPONIBLES PARA ALQUILER
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-            sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'alquiler' and Nombre_Estado ='NoDisponible'"
-            cursor.execute(sentenciaListado)
-            listado=cursor.fetchall()# aca retorna una tupla
-            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos           
+        sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'alquiler' and Nombre_Estado ='NoDisponible'"
+        cursor.execute(sentenciaListado)
+        listado=cursor.fetchall()# aca retorna una tupla
+        listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos           
  
 def propNoDisponibleVenta():#PROPIEDADES  NO DISPONIBLES PARA VENTA
     if baseDatos.is_connected():  # si hay conexion con la base de datos
-            sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'Venta' and Nombre_Estado ='NoDisponible'"
-            cursor.execute(sentenciaListado)
-            listado=cursor.fetchall()# aca retorna una tupla
-            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
+        sentenciaListado="SELECT Nombre_Estado, Nombre_Tipo, P.Nombre, P.Direccion, P.Contacto, OPC.Nombre_Operatoria_Comercial FROM propiedad Pr inner join estado E on  Pr.Id_Estado=E.Id_Estado inner join Propietario P on Pr.Id_Propietario=P.Id_Propietario inner join tipo T on Pr.Id_Tipo=T.Id_Tipo INNER JOIN operatoriacomercial OPC on Pr.Id_Operatoria_Comercial=OPC.Id_Operatoria_Comercial Where Nombre_Operatoria_Comercial = 'Venta' and Nombre_Estado ='NoDisponible'"
+        cursor.execute(sentenciaListado)
+        listado=cursor.fetchall()# aca retorna una tupla
+        listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
 
     #################################################################################
 

@@ -17,9 +17,14 @@ def cerrarConexion():#cierro la conexion con la base de datos y cierro el cursor
 
 def ingresarPropiedad():#metodo que ingresa una propiedad a la base de datos
     if baseDatos.is_connected():#si hay conexion con la base de datos
-            propiedad = funciones.cargarDatosPropiedad()#metodo que solicita al usuario que ingrese datos 
+            funciones.cargarDatosPropiedad()#metodo que solicita al usuario que ingrese datos
                                         #de la propiedad(nombre, direccion, contacto )
-
+def eliminarPropiedad():#elimina una propiedad existente
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        funciones.suprimirPropiedad()
+def modificarPropiedad():#modifica una propiedad de la base de datos
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        funciones.actualizarPropiedad()
 def menuPrincipal():
     system("cls") #limpio la pantalla
     continuar = True#cuando es false quiere decir que el usuario quiere cerrar el programa
@@ -77,11 +82,8 @@ def ejecutarOpcion(opcion):
     elif opcion == 7:
         listarPropiedadesVendidas()
 
-    elif opcion == 8:
-        listarPropiedadesAlquiladas()
-
     else:
-        desconectar()
+        listarPropiedadesAlquiladas()
 
      
                 

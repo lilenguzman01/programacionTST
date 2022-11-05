@@ -6,7 +6,7 @@ class Propiedad:
     Nombre = ""
     Direccion = ""
     Contacto = ""
-    eliminada = 0
+
 
 
 
@@ -41,8 +41,6 @@ class Propiedad:
     def getContacto(self):
         return self.Contacto
 
-    def geteliminada(self):
-        return self.eliminada
 
     def setId_Tipo(self,Id_Tipo):
         self.Id_Tipo = Id_Tipo
@@ -65,8 +63,7 @@ class Propiedad:
     def setContacto(self,contacto):
         self.Contacto = contacto
     
-    def setelimanada(self,eliminada):
-        self.eliminada = eliminada
+
 
 
 

@@ -22,7 +22,7 @@ def cargarDatosPropiedad():
     direccion = input("Ingrese Direccion de la Propiedad:")
     contacto = input("Ingrese Contacto de la Propiedad:")
 
-    #nuevaPropiedad = Modelos.Propiedad.Propiedad()
+    nuevaPropiedad = Modelos.Propiedad.Propiedad(idTipo,idEstado,idOperatoria,idPropietario,nombre,direccion,contacto)
     cargarPropiedadBaseDatos(nuevaPropiedad)#carga la propiedad recien creadad a la base de datos
 
 def cargarPropiedadBaseDatos(nuevaPropiedad):#carga la propiedad recien creadad a la base de datos
@@ -30,7 +30,7 @@ def cargarPropiedadBaseDatos(nuevaPropiedad):#carga la propiedad recien creadad 
     print("Cargando la Nueva Propiedad a la Base de Datos")
     if baseDatos.is_connected():  # si hay conexion con la base de datos
         sentenciaSql = "INSERT INTO propiedad(Nombre,Direccion,Contacto,Id_Tipo,Id_Estado,Id_Operatoria_Comercial,Id_Propietario) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')"  # sentencia sql
-        cursor.execute(sentenciaSql.format(nuevaPropiedad))
+        cursor.execute(sentenciaSql.format(nuevaPropiedad.get_Nombre(),nuevaPropiedad.getDireccion(),nuevaPropiedad.getContacto(),nuevaPropiedad.get_Id_Tipo(),nuevaPropiedad.get_Id_Estado(),nuevaPropiedad.get_Id_Operatoria_Comercial(),nuevaPropiedad.get_Id_Propietario()))
         baseDatos.commit()# agrego los cambios en la base de datos
 
         print("Se Cargo la Nueva Propiedad")
@@ -178,7 +178,7 @@ def seleccionarEstadoExistente(nombresEstados):#el usuario selecciona el id de u
                 seguir = False#el id estado fue seleccionado correctamentre
                 #corta el while
 
-
+    return id
 
 def cargarNuevoEstado():#carga un nuevo estado a la base de datos
     if baseDatos.is_connected():#si hay conexion con la base de datos
@@ -369,13 +369,74 @@ def cargarNuevoPropietario():#carga un nuevo propietario a la base de datos
         i=maximoId()
         print("Se Ingreso un Nuevo Propietario a la Tabla Propietario")
     return i    
-#listadoPropietarios()
-
-cargarDatosPropiedad()
-#i=cargarNuevoPropietario()
 
 
-#################################################################################
+def suprimirPropiedad():#borra una propiedad existente de la base de datos
+    seguir = True
+    while seguir:
+        if baseDatos.is_connected():  # si hay conexion con la base de datos
+            sentenciaListado="SELECT Id_Propiedad,Nombre,Direccion FROM propiedad"
+            cursor.execute(sentenciaListado)
+            listado=cursor.fetchall()# aca retorna una tupla
+            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
+            maxIdPropiedad=maximoIdListadoPropiedades()# retorna el maximo id de la tabla propietario
+            id=int(input("Seleccione el Id de una Propiedad:"))
+            if id<0 or id>maxIdPropiedad:
+                print("Id incorrecto")
+            else:
+                print("Se elimina la propiedad con Id: ")
+                print(id)
+                sentenciaEliminar="DELETE FROM propiedad WHERE Id_Propiedad={0}"
+                cursor.execute(sentenciaEliminar.format(id))
+                baseDatos.commit()#agrego los cambios en la base de datos
+                seguir=False
 
 
+def maximoIdListadoPropiedades():  # retorna el maximo id de la tabla propietario
+
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+        sentenciaId = "select max(Id_Propiedad) from propiedad"  # obtengo el id del nuevo propietario
+        cursor.execute(sentenciaId)
+        i = cursor.fetchone()
+    return i[0]  # retorna el valor almacenado en la posicion del indice 0
+
+
+def listarPropiedades(listado):  # muestra las Propiedades cargados en la base de datos
+    print("Listado de Propiedades\n")
+
+    if len(listado) == 0:  # si no hay propietarios
+        print("No hay Propiedades registradas")
+    else:  # hay Propiedades registradas. Muestro su id , nombre y direccion
+        for i in listado:
+            datosPropiedades = "Id Propiedad: {0}-- Nombre: {1}-- Dierección: {2}"
+            print(datosPropiedades.format(i[0], i[1],i[2]))
+
+        print("\n")
+
+
+def actualizarPropiedad():#actuaqliza la propiedad de la base de datos
+    seguir = True
+    while seguir:
+        if baseDatos.is_connected():  # si hay conexion con la base de datos
+            sentenciaListado = "SELECT Id_Propiedad,Nombre,Direccion FROM propiedad"
+            cursor.execute(sentenciaListado)
+            listado = cursor.fetchall()  # aca retorna una tupla
+            listarPropiedades(listado)  # muestra las Propiedades cargados en la base de datos
+            maxIdPropiedad = maximoIdListadoPropiedades()  # retorna el maximo id de la tabla propietario
+            id = int(input("Seleccione el Id de una Propiedad:"))
+            if id < 0 or id > maxIdPropiedad:
+                print("Id incorrecto")
+            else:
+                print("Se Modifica la propiedad con Id: ")
+                print(id)
+                nombre=input("Ingrese Nuevo Nombre de la Propiedad")
+                sentenciaActualizar = "UPDATE propiedad SET Nombre='{0}'where Id_Propiedad='{1}'"
+                cursor.execute(sentenciaActualizar.format(nombre,id))
+                baseDatos.commit()  # agrego los cambios en la base de datos
+                print("Se Actualizo la Propiedad")
+                seguir = False
+
+    #################################################################################
+
+actualizarPropiedad()
 

@@ -438,5 +438,5 @@ def actualizarPropiedad():#actuaqliza la propiedad de la base de datos
 
     #################################################################################
 
-actualizarPropiedad()
+
 

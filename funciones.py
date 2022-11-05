@@ -436,7 +436,17 @@ def actualizarPropiedad():#actuaqliza la propiedad de la base de datos
                 print("Se Actualizo la Propiedad")
                 seguir = False
 
+  
+def muestraPropiedad():
+    if baseDatos.is_connected():  # si hay conexion con la base de datos
+            sentenciaListado="SELECT Id_Propiedad,Nombre,Direccion FROM propiedad"
+            cursor.execute(sentenciaListado)
+            listado=cursor.fetchall()# aca retorna una tupla
+            listarPropiedades(listado)# muestra las Propiedades cargados en la base de datos
+  
+
+muestraPropiedad()
+  
     #################################################################################
 
-actualizarPropiedad()
 

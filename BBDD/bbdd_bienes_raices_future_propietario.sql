@@ -29,7 +29,6 @@ CREATE TABLE `propietario` (
   `Nombre` varchar(45) NOT NULL,
   `Direccion` varchar(45) DEFAULT NULL,
   `Contacto` varchar(45) NOT NULL,
-  `Id_propiedad` int DEFAULT NULL,
   PRIMARY KEY (`Id_Propietario`),
   UNIQUE KEY `Id_Propietario_UNIQUE` (`Id_Propietario`),
   UNIQUE KEY `Nombre_UNIQUE` (`Nombre`),

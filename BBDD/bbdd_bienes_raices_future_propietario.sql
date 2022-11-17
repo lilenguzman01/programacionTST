@@ -31,8 +31,8 @@ CREATE TABLE `propietario` (
   `Contacto` varchar(45) NOT NULL,
   PRIMARY KEY (`Id_Propietario`),
   UNIQUE KEY `Id_Propietario_UNIQUE` (`Id_Propietario`),
-  UNIQUE KEY `Nombre_UNIQUE` (`Nombre`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `Nombre_UNIQUE` (`Nombre`))
+   ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

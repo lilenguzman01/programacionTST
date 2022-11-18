@@ -29,13 +29,10 @@ CREATE TABLE `propietario` (
   `Nombre` varchar(45) NOT NULL,
   `Direccion` varchar(45) DEFAULT NULL,
   `Contacto` varchar(45) NOT NULL,
-  `Id_propiedad` int DEFAULT NULL,
   PRIMARY KEY (`Id_Propietario`),
   UNIQUE KEY `Id_Propietario_UNIQUE` (`Id_Propietario`),
-  UNIQUE KEY `Nombre_UNIQUE` (`Nombre`),
-  UNIQUE KEY `Id_propiedad_UNIQUE` (`Id_propiedad`),
-  CONSTRAINT `Id_Propiedad` FOREIGN KEY (`Id_propiedad`) REFERENCES `propiedad` (`Id_Propiedad`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `Nombre_UNIQUE` (`Nombre`))
+   ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

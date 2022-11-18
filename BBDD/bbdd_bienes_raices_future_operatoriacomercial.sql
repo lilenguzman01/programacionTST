@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `operatoriacomercial`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `operatoriacomercial` (
-  `Id_Operatoria_Comercial` int NOT NULL,
+  `Id_Operatoria_Comercial` int NOT NULL AUTO_INCREMENT,
   `Nombre_Operatoria_Comercial` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Id_Operatoria_Comercial`),
   UNIQUE KEY `Id_Operatoria_Comercial_UNIQUE` (`Id_Operatoria_Comercial`),
